@@ -15,7 +15,8 @@ class UserModel {
         $stmt->bindValue(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch();
-        if ($user && password_verify($password, $user['password'])) {
+        // So sánh trực tiếp chuỗi mật khẩu dạng chữ thuần
+        if ($user && $password === $user['password']) {
             return $user;
         }
         return false;
