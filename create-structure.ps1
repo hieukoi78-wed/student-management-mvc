@@ -1,4 +1,6 @@
-# Tạo các thư mục con
+# Script tao bo khung MVC thuan PHP.
+# Chay tai thu muc goc cua du an.
+
 $folders = @(
     "config",
     "routes",
@@ -11,11 +13,6 @@ $folders = @(
     "public/js"
 )
 
-foreach ($folder in $folders) {
-    New-Item -ItemType Directory -Path $folder -Force | Out-Null
-}
-
-# Tạo các file
 $files = @(
     "config/DataBase.php",
     "routes/Router.php",
@@ -38,9 +35,19 @@ $files = @(
     "README.md"
 )
 
+# Xac dinh thu muc goc dua tren vi tri cua file script.
+# Nho do script van dung khi Terminal dang o thu muc khac.
+$root = $PSScriptRoot
+
+foreach ($folder in $folders) {
+    $path = Join-Path $root $folder
+    New-Item -ItemType Directory -Path $path -Force | Out-Null
+}
+
 foreach ($file in $files) {
-    if (-not (Test-Path $file)) {
-        New-Item -ItemType File -Path $file | Out-Null
+    $path = Join-Path $root $file
+    if (-not (Test-Path -LiteralPath $path)) {
+        New-Item -ItemType File -Path $path | Out-Null
     }
 }
 
