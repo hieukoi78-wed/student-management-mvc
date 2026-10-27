@@ -1,0 +1,37 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local configuration
+/config/local.php
+/config/database.local.php
+
+# CodeIgniter runtime data
+/writable/cache/*
+!/writable/cache/index.html
+/writable/logs/*
+!/writable/logs/index.html
+/writable/session/*
+!/writable/session/index.html
+/writable/uploads/*
+!/writable/uploads/index.html
+/writable/debugbar/*
+!/writable/debugbar/index.html
+
+# Logs and temporary files
+*.log
+*.tmp
+/cache/
+/tmp/
+/build/
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
