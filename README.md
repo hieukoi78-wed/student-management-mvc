@@ -183,6 +183,12 @@ Tại thư mục dự án, chạy máy chủ phát triển bằng PHP 8.2+:
 php spark serve --host 127.0.0.1 --port 8081
 ```
 
+Nếu lệnh `php` không được nhận diện trong PowerShell và PHP 8.2 được cài tại `C:\xampp\php82`, dùng đường dẫn đầy đủ:
+
+```powershell
+& "C:\xampp\php82\php.exe" spark serve --host 127.0.0.1 --port 8081
+```
+
 Giữ cửa sổ Terminal đang chạy. Mở trình duyệt:
 
 - Đăng nhập quản trị: [http://localhost:8081/login](http://localhost:8081/login)
@@ -194,7 +200,7 @@ Giữ cửa sổ Terminal đang chạy. Mở trình duyệt:
 Nếu cổng `8081` đang được sử dụng, có thể chạy bằng cổng khác, ví dụ:
 
 ```powershell
-php spark serve --host 127.0.0.1 --port 8082
+php spark serve --host 127.0.0.1 --port 8081
 ```
 
 Sau đó đổi `app.baseURL` trong `.env` thành `http://localhost:8082/`.
