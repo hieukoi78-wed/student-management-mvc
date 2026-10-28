@@ -47,4 +47,55 @@
         </article>
     </div>
 </div>
+
+<?php
+$revenueValues = [];
+if (is_array($dailyRevenue ?? null)) {
+    foreach ($dailyRevenue as $revenue) {
+        $revenueValues[] = (float) $revenue;
+    }
+}
+
+$maxRevenue = $revenueValues !== [] ? max($revenueValues) : 0.0;
+$weekRevenue = is_numeric($weekRevenue ?? null) ? (float) $weekRevenue : (float) array_sum($revenueValues);
+$weekdayLabels = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+?>
+<section class="card dashboard-revenue mt-4" aria-labelledby="dashboard-revenue-title">
+    <div class="card-body">
+        <div class="dashboard-revenue-heading">
+            <div>
+                <span class="dashboard-revenue-overline">KẾT QUẢ KINH DOANH</span>
+                <h2 id="dashboard-revenue-title">Doanh thu tuần này</h2>
+                <p class="text-secondary mb-0">Từ thứ Hai đến Chủ nhật</p>
+            </div>
+            <div class="dashboard-revenue-total">
+                <?= esc(number_format($weekRevenue, 0, ',', '.')) ?> ₫
+            </div>
+        </div>
+
+        <div class="revenue-chart" role="img" aria-label="Biểu đồ doanh thu từng ngày trong tuần này">
+            <?php foreach ($dailyRevenue as $date => $revenue): ?>
+                <?php
+                $numericRevenue = (float) $revenue;
+                $dayIndex = is_string($date) && $date !== ''
+                    ? ((int) (new DateTimeImmutable($date))->format('N') - 1)
+                    : 0;
+                $dayLabel = $weekdayLabels[$dayIndex] ?? '';
+                $barHeight = $maxRevenue > 0 ? ($numericRevenue / $maxRevenue) * 100 : 0;
+                ?>
+                <div class="revenue-chart-day" title="<?= esc(($dayLabel !== '' ? $dayLabel . ': ' : '') . number_format($numericRevenue, 0, ',', '.') . ' ₫') ?>">
+                    <span class="revenue-chart-value"><?= esc(number_format($numericRevenue, 0, ',', '.')) ?></span>
+                    <div class="revenue-chart-track">
+                        <div class="revenue-chart-bar" style="height: <?= esc((string) $barHeight) ?>%"></div>
+                    </div>
+                    <span class="revenue-chart-label"><?= esc($dayLabel) ?></span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <a class="metric-link dashboard-revenue-link" href="<?= site_url('reports') ?>">
+            Xem báo cáo chi tiết <span aria-hidden="true">→</span>
+        </a>
+    </div>
+</section>
 <?= $this->endSection() ?>

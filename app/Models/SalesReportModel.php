@@ -28,6 +28,18 @@ class SalesReportModel
         ];
     }
 
+    public function dailyRevenue(string $start, string $end): array
+    {
+        return $this->db->query(
+            "SELECT DATE(sold_at) AS sale_date, SUM(total_amount) AS revenue
+            FROM sales_orders
+            WHERE status = 'completed' AND sold_at >= ? AND sold_at < ?
+            GROUP BY DATE(sold_at)
+            ORDER BY sale_date ASC",
+            [$start, $end]
+        )->getResultArray();
+    }
+
     public function busiestHour(string $start, string $end): ?array
     {
         return $this->db->query(
@@ -63,6 +75,8 @@ class SalesReportModel
 
     public function topBooks(string $start, string $end, int $limit = 5): array
     {
+        $safeLimit = max(1, min((int) $limit, 20));
+
         return $this->db->query(
             "SELECT sales_order_items.book_id, sales_order_items.book_title, sales_order_items.isbn,
                 SUM(sales_order_items.quantity) AS quantity_sold,
@@ -73,8 +87,8 @@ class SalesReportModel
                 AND sales_orders.sold_at >= ? AND sales_orders.sold_at < ?
             GROUP BY sales_order_items.book_id, sales_order_items.book_title, sales_order_items.isbn
             ORDER BY quantity_sold DESC, revenue DESC, sales_order_items.book_title ASC
-            LIMIT " . max(1, min($limit, 20)),
-            [$start, $end]
+            LIMIT ?",
+            [$start, $end, $safeLimit]
         )->getResultArray();
     }
 }

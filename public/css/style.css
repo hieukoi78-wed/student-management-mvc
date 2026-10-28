@@ -527,6 +527,108 @@ a {
     transform: translateY(-3px);
 }
 
+.admin-content .dashboard-revenue {
+    margin-bottom: 25px;
+}
+
+.dashboard-revenue-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.dashboard-revenue-overline {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 1px;
+}
+
+.dashboard-revenue-heading h2 {
+    margin: 5px 0;
+    color: var(--ink);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 21px;
+    font-weight: 650;
+}
+
+.dashboard-revenue-heading p {
+    font-size: 11px;
+}
+
+.dashboard-revenue-total {
+    color: var(--green-dark);
+    font-size: clamp(18px, 3vw, 25px);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.revenue-chart {
+    display: grid;
+    min-height: 225px;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+    padding: 14px 10px 0;
+    border-bottom: 1px solid var(--line);
+    background: repeating-linear-gradient(to bottom, transparent 0, transparent 48px, var(--line) 49px, transparent 50px);
+}
+
+.revenue-chart-day {
+    display: grid;
+    min-width: 0;
+    grid-template-rows: 18px minmax(0, 1fr) 28px;
+    justify-items: center;
+    text-align: center;
+}
+
+.revenue-chart-value {
+    width: 100%;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 9px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.revenue-chart-track {
+    display: flex;
+    width: min(100%, 42px);
+    height: 100%;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.revenue-chart-bar {
+    width: 100%;
+    min-height: 3px;
+    border-radius: 7px 7px 2px 2px;
+    background: linear-gradient(180deg, #7a9e80, #355d4d);
+    transition: height 350ms ease;
+}
+
+.revenue-chart-label {
+    padding-top: 8px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.admin-content .dashboard-revenue-link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.admin-content .dashboard-revenue-link:hover {
+    text-decoration: underline;
+}
+
 .admin-content .table {
     --bs-table-bg: transparent;
     color: #35433c;
